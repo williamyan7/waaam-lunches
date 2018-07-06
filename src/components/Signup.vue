@@ -14,6 +14,10 @@
         <label for="password">Password:</label>
         <input type="password" name="password" v-model="password">
       </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" name="confirmPassword" v-model="confirmPassword">
+      </div>
       <p class="red-text center" v-if="feedback">{{ feedback }}</p>
       <div class="field center">
         <button class="btn blue">Signup</button>
@@ -24,7 +28,6 @@
 
 <script>
 import firebase from '@/firebase/init'
-
 export default {
   name: 'Signup',
   data() {
@@ -32,26 +35,33 @@ export default {
       name: null,
       email: null,
       password: null,
+      confirmPassword: null,
       feedback: null
     }
   },
   methods: {
     signup() {
       const ref = firebase.firestore().collection('users')
-      if(this.name && this.email && this.password){
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-        .then(cred => {
-          ref.doc(cred.user.email).set({
-                name: this.name,
-                email: this.email,
-              })
-            }).then(() => {this.$router.push({ name: 'Home' })})
-            .catch(err => {
-              console.log(err)
-              this.feedback = err.message})
-          }
-       else {
-        this.feedback = 'Please complete all fields.'
+      if(this.password == this.confirmPassword) {
+        if(this.name && this.email && this.password){
+          firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          .then(cred => {
+            ref.doc(cred.user.email).set({
+                  name: this.name,
+                  email: this.email,
+                  has_assigned_group: false,
+                  status_active: true
+                })
+              }).then(() => {this.$router.push({ name: 'Home' })})
+              .catch(err => {
+                console.log(err)
+                this.feedback = err.message})
+            }
+         else {
+          this.feedback = 'Please complete all fields.'
+        }
+      } else {
+        this.feedback = 'Passwords do not match.'
       }
     }
   }

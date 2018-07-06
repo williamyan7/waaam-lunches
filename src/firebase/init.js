@@ -2,12 +2,12 @@ import firebase from 'firebase'
 import firestore from 'firebase/firestore'
 
 var config = {
-      apiKey: "AIzaSyCngKxRLEngIXe1esCed-kzrJSmMWO9kYg",
-      authDomain: "waaam-lunches.firebaseapp.com",
-      databaseURL: "https://waaam-lunches.firebaseio.com",
-      projectId: "waaam-lunches",
-      storageBucket: "waaam-lunches.appspot.com",
-      messagingSenderId: "715790750822"
+    apiKey: "AIzaSyBC2n9FWwf8ETP5qlXnO7ULxDbrf7Bz9e8",
+    authDomain: "waaam-lunches-a1d47.firebaseapp.com",
+    databaseURL: "https://waaam-lunches-a1d47.firebaseio.com",
+    projectId: "waaam-lunches-a1d47",
+    storageBucket: "waaam-lunches-a1d47.appspot.com",
+    messagingSenderId: "787345928970"
   };
 
 const firebaseApp = firebase.initializeApp(config);
