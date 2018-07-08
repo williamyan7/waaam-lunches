@@ -3,20 +3,29 @@
     <form class="card-panel" @submit.prevent="signup">
       <h2 class="center blue-text">Signup</h2>
       <div class="field">
-        <label for="name">Name:</label>
+        <label for="name" class="label">Name:</label>
         <input type="text" name="name" v-model="name">
       </div>
       <div class="field">
-        <label for="email">Email:</label>
+        <label for="email" class="label">Email:</label>
         <input type="email" name="email" v-model="email">
       </div>
       <div class="field">
-        <label for="password">Password:</label>
+        <label for="password" class="label">Password:</label>
         <input type="password" name="password" v-model="password">
       </div>
       <div class="field">
-        <label for="confirmPassword">Confirm Password:</label>
+        <label for="confirmPassword" class="label">Confirm Password:</label>
         <input type="password" name="confirmPassword" v-model="confirmPassword">
+      </div>
+      <div class="field">
+        <v-flex>
+          <v-select
+           :items="years"
+           label="Choose your year"
+           v-model="year"
+           ></v-select>
+         </v-flex>
       </div>
       <p class="red-text center" v-if="feedback">{{ feedback }}</p>
       <div class="field center">
@@ -36,7 +45,9 @@ export default {
       email: null,
       password: null,
       confirmPassword: null,
-      feedback: null
+      year: null,
+      feedback: null,
+      years: ['1st Year', '2nd Year']
     }
   },
   methods: {
@@ -49,10 +60,17 @@ export default {
             ref.doc(cred.user.email).set({
                   name: this.name,
                   email: this.email,
+                  year: this.year,
                   has_assigned_group: false,
-                  status_active: true
+                  status_active: true,
+                  uploadedPhoto: false,
+                  hometown: 'Fun Town, USA',
+                  preindustry: 'Something I hate',
+                  postindustry: 'Something I love',
+                  about: 'I love WAAAM!',
+                  buddy_email: null
                 })
-              }).then(() => {this.$router.push({ name: 'Home' })})
+              }).then(() => {this.$router.push({ name: 'Profile' })})
               .catch(err => {
                 console.log(err)
                 this.feedback = err.message})
@@ -78,5 +96,8 @@ export default {
 }
 .signup .field {
   margin-bottom: 16px
+}
+.label {
+  font-size: 1em;
 }
 </style>

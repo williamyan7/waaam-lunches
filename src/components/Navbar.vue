@@ -1,9 +1,7 @@
 <template>
   <v-toolbar app flat dark class="blue darken-3">
     <v-toolbar-title class="white--text">
-      <router-link to="/" tag="span" style="cursor: pointer">
         WAAAM Lunches
-      </router-link>
     </v-toolbar-title>
     <v-spacer />
     <v-toolbar-items class="hidden-xs-only">
@@ -35,11 +33,13 @@ export default {
     menuItems () {
       if(this.user) {
         return [
+          { title: 'About', path: '/about', icon: 'face' },
           { title: 'Home', path:'/home', icon:'home' },
           { title: 'Profile', path: '/profile', icon: 'perm_identity' }
         ]
       } else {
           return [
+            { title: 'About', path: '/about', icon: 'face' },
             { title: 'Signup', path: '/signup', icon: 'face' },
             { title: 'Login', path: '/login', icon: 'lock_open' }
         ]

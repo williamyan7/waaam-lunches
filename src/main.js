@@ -11,8 +11,11 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
+const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+  new Vue({
+    el: '#app',
+    router,
+    render: h => h(App)
+  })
+  unsubscribe()
 })
