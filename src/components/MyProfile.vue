@@ -2,7 +2,7 @@
   <div class="profile container card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
-        <h4>Here's your buddy!</h4>
+        <h4>Here's you!</h4>
       </v-flex>
       <v-flex xs12 class="text-xs-center" mt-3>
         <img v-if="!hasImage" src="../assets/profile_placeholder.png" class="profilePicture">
@@ -13,33 +13,33 @@
           <tbody>
             <tr>
               <td>Name</td>
-              <td>{{ buddy_name }}</td>
+              <td>{{ name }}</td>
             </tr>
             <tr>
               <td>Email</td>
-              <td>{{ buddy_email }}</td>
+              <td>{{ email }}</td>
               <td></td>
             </tr>
             <tr>
               <td>Year</td>
-              <td>{{ buddy_year }}</td>
+              <td>{{ year }}</td>
               <td></td>
             </tr>
             <tr>
               <td>Hometown</td>
-              <td>{{ buddy_hometown }}</td>
+              <td>{{ hometown }}</td>
             </tr>
             <tr>
               <td>Pre-Wharton Industry</td>
-              <td>{{ buddy_preIndustry }}</td>
+              <td>{{ preIndustry }}</td>
             </tr>
             <tr>
               <td>Post-Wharton Industry Interest(s)</td>
-              <td>{{ buddy_postIndustry }}</td>
+              <td>{{ postIndustry }}</td>
             </tr>
             <tr>
               <td>Hobbies and Interests</td>
-              <td>{{ buddy_about }}</td>
+              <td>{{ about }}</td>
             </tr>
           </tbody>
         </table>
@@ -53,42 +53,37 @@ import firebase from '@/firebase/init'
 export default {
   data() {
     return {
-      buddy_name: null,
-      buddy_year: null,
-      buddy_email: null,
-      buddy_hometown: null,
-      buddy_preIndustry: null,
-      buddy_postIndustry: null,
-      buddy_about: null,
-      hasImage: false,
-      imageURL: null,
-      hasImage: false
+      hasImage: true,
+      imageURL: '',
+      email: '',
+      name: '',
+      about: '',
+      hometown: '',
+      year:'',
+      preIndustry:'',
+      postIndustry:'',
     }
   },
   created() {
     var self = this
     firebase.firestore().collection('users').doc(firebase.auth().currentUser.email).get()
     .then(doc => {
-      self.buddy_email = doc.data().buddy_email
-      firebase.firestore().collection('users').doc(self.buddy_email).get()
-      .then(doc => {
-        var data = doc.data()
-        self.hasImage = data.uploadedPhoto
-        self.buddy_name = data.name
-        self.buddy_year = data.year
-        self.buddy_hometown = data.hometown
-        self.buddy_about = data.about
-        self.buddy_preIndustry = data.preindustry
-        self.buddy_postIndustry = data.postindustry
-        if(self.hasImage){
-          firebase.storage().ref().child(self.buddy_email)
-          .getDownloadURL().then(function(url) {
-            self.imageURL = url
-          })
-        }
-      })
+      var data = doc.data()
+      self.email = data.email
+      self.hasImage = data.uploadedPhoto
+      self.name = data.name
+      self.year = data.year
+      self.hometown = data.hometown
+      self.about = data.about
+      self.preIndustry = data.preindustry
+      self.postIndustry = data.postindustry
+      if(self.hasImage){
+        firebase.storage().ref().child(self.email)
+        .getDownloadURL().then(function(url) {
+          self.imageURL = url
+        })
+      }
     })
-
   }
 }
 </script>

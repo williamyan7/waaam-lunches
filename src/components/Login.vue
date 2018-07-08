@@ -33,7 +33,7 @@ export default {
     login() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(user => {
-        this.$router.push({ name: 'Home' })
+        this.$router.push({ name: 'CurrentPairing' })
       }).catch(error => {
         this.feedback = error.message
       })

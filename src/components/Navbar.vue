@@ -31,20 +31,35 @@ export default {
   },
   computed: {
     menuItems () {
+      var self = this
       if(this.user) {
-        return [
-          { title: 'About', path: '/about', icon: 'face' },
-          { title: 'Home', path:'/home', icon:'home' },
-          { title: 'Profile', path: '/profile', icon: 'perm_identity' }
-        ]
+        firebase.firestore().collection('users').doc(self.user.email).get()
+        .then(doc => {
+          var is_admin = doc.data().is_admin
+          if(is_admin) {
+            return [
+              { title: 'About', path: '/about', icon: 'find_in_page' },
+              { title: 'Admin', path: '/admin', icon: 'person' },
+              { title: 'Current Pairing', path:'/currentpairing', icon:'group' },
+              { title: 'Edit Profile', path: '/editprofile', icon: 'person' }
+          ]
+        }
+         else {
+            return [
+              { title: 'About', path: '/about', icon: 'find_in_page' },
+              { title: 'Current Pairing', path:'/currentpairing', icon:'group' },
+              { title: 'Edit Profile', path: '/editprofile', icon: 'person' }
+            ]
+          }
+        })
       } else {
           return [
-            { title: 'About', path: '/about', icon: 'face' },
+            { title: 'About', path: '/about', icon: 'find_in_page' },
             { title: 'Signup', path: '/signup', icon: 'face' },
             { title: 'Login', path: '/login', icon: 'lock_open' }
-        ]
+          ]
+        }
       }
-    }
   },
   methods: {
     logout() {
@@ -54,9 +69,11 @@ export default {
     }
   },
   created() {
+    var self = this
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.user = user
+        console.log(self.user)
       } else {
         this.user = null
       }

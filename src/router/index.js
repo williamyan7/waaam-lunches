@@ -3,9 +3,10 @@ import Router from 'vue-router'
 import LandingPage from '@/components/LandingPage'
 import Signup from '@/components/Signup'
 import Login from '@/components/Login'
-import Home from '@/components/Home'
-import Profile from '@/components/Profile'
+import CurrentPairing from '@/components/CurrentPairing'
+import EditProfile from '@/components/EditProfile'
 import About from '@/components/About'
+import AdminDashboard from '@/components/AdminDashboard'
 
 Vue.use(Router)
 
@@ -27,19 +28,24 @@ export default new Router({
       component: Login
     },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
+      path: '/editprofile',
+      name: 'EditProfile',
+      component: EditProfile
     },
     {
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/currentpairing',
+      name: 'CurrentPairing',
+      component: CurrentPairing
+    },
+    {
+      path: '/admin',
+      name: 'AdminDashboard',
+      component: AdminDashboard
     }
   ]
 })

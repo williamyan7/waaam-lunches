@@ -1,9 +1,9 @@
 <template lang="html">
   <!-- Current user profile -->
-  <div class="profile card-panel col s6">
+  <div class="profile container card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
-        <h3>Welcome to your profile</h3>
+        <h4>Welcome to your profile</h4>
         <h6>Make sure all your information below is completed!</h6>
       </v-flex>
       <v-flex xs12 class="text-xs-center" mt-5>
@@ -16,7 +16,7 @@
           <button @click="removeImage"><i class="material-icons grey-text text-darken-2 deleteButton">delete</i></button>
         </form>
       </v-flex>
-      <div class="settings">
+      <div class="settings no-padding">
         <table>
           <tbody>
             <tr>
@@ -27,7 +27,7 @@
                 <div class="switch">
                   <label>
                     No
-                    <input type="checkbox" v-model="active" @click="toggleStatus">
+                    <input type="checkbox" @click="toggleStatus" v-model="status_active">
                     <span class="lever"></span>
                     Yes
                   </label>
@@ -42,7 +42,7 @@
                 <div class="switch">
                   <label>
                     No
-                    <input type="checkbox">
+                    <input type="checkbox" @click="toggleMetBuddy" v-model="met_buddy">
                     <span class="lever"></span>
                     Yes
                   </label>
@@ -52,7 +52,7 @@
           </tbody>
         </table>
       </div>
-      <div class="infoSection container card-panel">
+      <div class="infoSection container no-padding">
         <table>
           <tbody>
             <tr>
@@ -104,14 +104,11 @@
         </table>
       </div>
     </v-layout>
-    <Home />
   </div>
 </template>
 
 <script>
 import firebase from '@/firebase/init'
-import BuddyProfile from '@/components/BuddyProfile'
-import Home from '@/components/Home'
 export default {
   data() {
     return {
@@ -129,12 +126,9 @@ export default {
       editableHometown: false,
       editablePre: false,
       editablePost: false,
-      active: null,
-      metBuddy: null
+      status_active: null,
+      met_buddy: null
     }
-  },
-  components: {
-    Home
   },
   created() {
     var self = this
@@ -150,8 +144,8 @@ export default {
       self.year = data.year
       self.preIndustry = data.preindustry
       self.postIndustry = data.postindustry
-      self.active = data.active
-      self.metBuddy = data.metBuddy
+      self.status_active = data.status_active
+      self.met_buddy = data.met_buddy
       if(self.hasImage){
         firebase.storage().ref().child(firebase.auth().currentUser.email)
         .getDownloadURL().then(function(url) {
@@ -229,10 +223,12 @@ export default {
       this.editablePost = false
     },
     toggleStatus() {
-      //Figure out why this is delayed
-      console.log(this.active)
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
-      .update({ active: this.active })
+      .update({ status_active: !this.status_active })
+    },
+    toggleMetBuddy() {
+      firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
+      .update({ met_buddy: !this.met_buddy })
     }
   }
 }
@@ -240,8 +236,7 @@ export default {
 
 <style lang="css">
 .profile {
-  margin-top: 60px;
-  margin-left: 50px;
+  margin-top: 40px;
   max-width: 600px;
 }
 .profilePicture {

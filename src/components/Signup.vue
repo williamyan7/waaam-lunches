@@ -63,14 +63,16 @@ export default {
                   year: this.year,
                   has_assigned_group: false,
                   status_active: true,
+                  met_buddy: false,
                   uploadedPhoto: false,
                   hometown: 'Fun Town, USA',
                   preindustry: 'Something I hate',
                   postindustry: 'Something I love',
                   about: 'I love WAAAM!',
-                  buddy_email: null
+                  buddy_email: null,
+                  is_admin: false
                 })
-              }).then(() => {this.$router.push({ name: 'Profile' })})
+              }).then(() => {this.$router.push({ name: 'CurrentPairing' })})
               .catch(err => {
                 console.log(err)
                 this.feedback = err.message})
