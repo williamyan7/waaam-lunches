@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import firebase from '@/firebase/init'
+import firebase from 'firebase'
 export default {
   name: 'Login',
   data() {

@@ -22,36 +22,33 @@
 </template>
 
 <script>
-import firebase from '@/firebase/init'
+import firebase from 'firebase'
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      is_admin: null,
+      admin_emails: ['williamyan7@gmail.com', 'willyan@wharton.upenn.edu']
     }
   },
   computed: {
     menuItems () {
       var self = this
       if(this.user) {
-        firebase.firestore().collection('users').doc(self.user.email).get()
-        .then(doc => {
-          var is_admin = doc.data().is_admin
-          if(is_admin) {
-            return [
-              { title: 'About', path: '/about', icon: 'find_in_page' },
-              { title: 'Admin', path: '/admin', icon: 'person' },
-              { title: 'Current Pairing', path:'/currentpairing', icon:'group' },
-              { title: 'Edit Profile', path: '/editprofile', icon: 'person' }
+        if(self.admin_emails.indexOf(this.user.email) > -1) {
+          return [
+            { title: 'About', path: '/about', icon: 'find_in_page' },
+            { title: 'Admin', path: '/admin', icon: 'person' },
+            { title: 'Current Pairing', path:'/currentpairing', icon:'group' },
+            { title: 'Edit Profile', path: '/editprofile', icon: 'person' }
           ]
-        }
-         else {
+        } else {
             return [
               { title: 'About', path: '/about', icon: 'find_in_page' },
               { title: 'Current Pairing', path:'/currentpairing', icon:'group' },
               { title: 'Edit Profile', path: '/editprofile', icon: 'person' }
             ]
           }
-        })
       } else {
           return [
             { title: 'About', path: '/about', icon: 'find_in_page' },
@@ -73,7 +70,6 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       if(user){
         this.user = user
-        console.log(self.user)
       } else {
         this.user = null
       }
