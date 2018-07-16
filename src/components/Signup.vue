@@ -70,9 +70,10 @@ export default {
                   postindustry: 'Something I love',
                   about: 'I love WAAAM!',
                   buddy_email: null,
-                  is_admin: false
+                  is_admin: false,
+                  past_buddies: ['n/a']
                 })
-              }).then(() => {this.$router.push({ name: 'CurrentPairing' })})
+              }).then(() => {this.$router.push({ name: 'EditProfile' })})
               .catch(err => {
                 console.log(err)
                 this.feedback = err.message})

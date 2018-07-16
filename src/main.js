@@ -9,6 +9,7 @@ import 'vuetify/dist/vuetify.min.css'
 import VueFire from 'vuefire'
 
 Vue.config.productionTip = false
+
 Vue.use(Vuetify)
 Vue.use(VueFire)
 
