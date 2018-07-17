@@ -73,6 +73,11 @@
               <td></td>
             </tr>
             <tr>
+              <td>Buddy email</td>
+              <td>{{ buddy_email }}</td>
+              <td></td>
+            </tr>
+            <tr>
               <td>Hometown</td>
               <td v-if="!editableHometown">{{ hometown }}</td>
               <td v-if="editableHometown"><input type="text" name="hometown" v-model="hometown"></td>
@@ -121,6 +126,7 @@ export default {
       year:'',
       preIndustry:'',
       postIndustry:'',
+      buddy_email:'',
       editableName: false,
       editableAbout: false,
       editableHometown: false,
@@ -146,6 +152,7 @@ export default {
       self.postIndustry = data.postindustry
       self.status_active = data.status_active
       self.met_buddy = data.met_buddy
+      self.buddy_email = data.buddy_email
       if(self.hasImage){
         firebase.storage().ref().child(firebase.auth().currentUser.email)
         .getDownloadURL().then(function(url) {
@@ -227,8 +234,13 @@ export default {
       .update({ status_active: !this.status_active })
     },
     toggleMetBuddy() {
+      var self = this
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
       .update({ met_buddy: !this.met_buddy })
+      .then(() => {
+        firebase.firestore().collection('users').doc(self.buddy_email)
+        .update({ met_buddy: self.met_buddy })
+      })
     }
   }
 }

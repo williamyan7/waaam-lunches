@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container center card-panel">
+  <div class="admin container center card-panel">
     <h2>Admin dashboard</h2>
     <br>
     <div class="participantList">
@@ -7,22 +7,58 @@
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th>Name</th>
+            <th>Email</th>
+            <th>Current buddy</th>
             <th>Met with buddy?</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in active_users">
+          <tr v-for="(user,index) in active_users" :key="index">
+            <td>{{ index+1 }}
             <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.buddy_email }}</td>
             <td>{{ user.met_buddy }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <br>
-    <button @click="setUserArray" class="btn blue">Set User Array</button>
-    <button @click="assignPairs" class="btn blue">Assign Pairs</button>
-    <button @click="clearBuddies" class="btn blue">Clear Buddy History</button>
+    <div class="non-participantList">
+      <h5>Inactives</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Current buddy</th>
+            <th>Met with buddy?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(user,index) in inactive_users" :key="index">
+            <td>{{ index+1 }}
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.buddy_email }}</td>
+            <td>{{ user.met_buddy }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <button @click="setUserArray" class="btn blue">Get User Data</button><br>
+    <!-- <button @click="clearBuddies" class="btn blue">Clear Buddy History</button> -->
+    <div class="initiatePairs container center card-panel">
+      <h4>Initiate pairing (complete weekly)</h4>
+      <button @click="setUserArray" class="btn blue">1. Refresh User Data</button>
+      <button v-if="include_admin" @click="toggleInclude" class="btn blue">2. Include admin</button>
+      <button v-if="!include_admin" @click="toggleInclude" class="btn grey">2. Don't include admin</button>
+      <button @click="assignPairs" class="btn blue">3. Assign Pairs</button>
+    </div>
   </div>
 </template>
 
@@ -34,8 +70,11 @@ export default {
     return {
       users: [],
       active_users: [],
+      active_met_users: [],
+      inactive_users: [],
       active_users_with_histories: [],
-      db_reference: null
+      db_reference: null,
+      include_admin: true
     }
   },
   created() {
@@ -47,16 +86,18 @@ export default {
       self.users = []
       self.active_users = []
       self.active_users_with_histories = []
+      self.inactive_users = []
       self.db_reference.get().then(snapshot => {
         snapshot.forEach(doc => {
           self.users.push(doc.data())
           if(doc.data().status_active == true) {
             self.active_users.push(doc.data())
-            self.active_users_with_histories.push({
-              email: doc.data().email,
-              past_buddies: doc.data().past_buddies,
-              buddy_email: doc.data().buddy_email
-            })
+            if(doc.data().met_buddy == true) {
+              self.active_met_users.push(doc.data())
+            }
+
+          } else {
+            self.inactive_users.push(doc.data())
           }
         })
       })
@@ -64,7 +105,7 @@ export default {
     assignPairs() {
       var self = this
       var pairs = []
-      var active_users1 = self.active_users.slice()
+      var active_users1 = self.active_met_users.slice()
       var duplicates = true
       var count = 0
       while(duplicates && count < 100 ) {
@@ -90,11 +131,11 @@ export default {
       this.updateBuddyList()
     },
     checkForDuplicates(pairs) {
-        for (var i = 0; i < this.active_users_with_histories.length; i++) {
-          var new_buddy = this.newBuddy(this.active_users_with_histories[i].email, pairs)
-          var current_history = this.active_users_with_histories[i].past_buddies
+        for (var i = 0; i < this.active_met_users.length; i++) {
+          var new_buddy = this.newBuddy(this.active_met_users[i].email, pairs)
+          var current_history = this.active_met_users[i].past_buddies
           for (var j = 0; j < current_history.length; j++) {
-            if(current_history[j] == new_buddy || this.active_users_with_histories[i].buddy_email == new_buddy) {
+            if(current_history[j] == new_buddy || this.active_met_users[i].buddy_email == new_buddy) {
               return true
             }
           }
@@ -122,7 +163,7 @@ export default {
            { merge: true }
          )
        })
-     })
+     }).then(this.resetMetBuddy)
    },
    clearBuddies() {
      firebase.firestore().collection('users').get()
@@ -130,13 +171,33 @@ export default {
       snapshot.forEach(doc => {
         firebase.firestore().collection('users').doc(doc.data().email).update(
           { past_buddies: ['n/a'] }
-        )
+          )
+        })
       })
-    })
-   }
+    },
+    toggleInclude() {
+      this.include_admin = !this.include_admin
+      firebase.firestore().collection('users').doc(firebase.auth().currentUser.email).update({
+        status_active: this.include_admin
+      })
+    },
+    resetMetBuddy() {
+      var userRef = firebase.firestore().collection('users')
+      userRef.where('status_active','==',true).get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          userRef.doc(doc.data().email).update({ met_buddy: false })
+        })
+      })
+    }
   }
 }
 </script>
-
 <style lang="css">
+.admin {
+  max-width: 1000px;
+}
+.initiatePairs {
+  margin-top: 30px;
+}
 </style>
