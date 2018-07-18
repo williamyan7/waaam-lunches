@@ -8,6 +8,7 @@ import EditProfile from '@/components/EditProfile'
 import About from '@/components/About'
 import AdminDashboard from '@/components/AdminDashboard'
 import NotFound from '@/components/NotFound'
+import VerifyEmail from '@/components/VerifyEmail'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -39,16 +40,24 @@ const router = new Router({
           next('/')
         }
       }},
+    { path: '/verifyemail', name: 'VerifyEmail', component: VerifyEmail },
     { path: '*', name: 'NotFound', component: NotFound }
   ]
 })
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const isAuthenticated = firebase.auth().currentUser
-  if (requiresAuth && !isAuthenticated) {
+  if (requiresAuth && (!isAuthenticated)) {
     next('/login')
+  } else if (requiresAuth && isAuthenticated) {
+    const verifiedEmail = firebase.auth().currentUser.emailVerified
+    if(!verifiedEmail) {
+      next('/verifyemail')
+    } else {
+      next()
+    }
   } else {
-    next()
+      next()
   }
 })
 

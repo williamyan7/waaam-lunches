@@ -73,7 +73,9 @@ export default {
                   is_admin: false,
                   past_buddies: ['n/a']
                 })
-              }).then(() => {this.$router.push({ name: 'EditProfile' })})
+              }).then(() => {
+                firebase.auth().currentUser.sendEmailVerification()
+              }).then(() => {this.$router.push({ name: 'VerifyEmail' })})
               .catch(err => {
                 console.log(err)
                 this.feedback = err.message})

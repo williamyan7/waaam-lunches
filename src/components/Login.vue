@@ -12,7 +12,18 @@
       </div>
       <p class="red-text center" v-if="feedback">{{ feedback }}</p>
       <div class="field center">
-        <button class="btn blue">Login</button>
+        <button class="btn blue">Login</button><br><br>
+        <a @click="forgotPassword">Forgot Password?</a>
+        <div class="resetPassword" v-if="forgot_PW && !email_sent && valid_recovery_email">
+          <input type="email" placeholder="Enter email" v-model="resetEmail"></input>
+          <button @click="resetPassword" class="btn blue">Reset Password</button>
+        </div>
+        <div v-if="email_sent">
+          <span class="blue--text">Email sent!</span>
+        </div>
+        <div v-if="!valid_recovery_email">
+          <span class="red--text">Email does not exist</span>
+        </div>
       </div>
     </form>
   </div>
@@ -26,7 +37,11 @@ export default {
     return {
       email: null,
       password: null,
-      feedback: null
+      feedback: null,
+      forgot_PW: false,
+      resetEmail: '',
+      email_sent: false,
+      valid_recovery_email: true
     }
   },
   methods: {
@@ -36,6 +51,18 @@ export default {
         this.$router.push({ name: 'CurrentPairing' })
       }).catch(error => {
         this.feedback = error.message
+      })
+    },
+    forgotPassword() {
+      this.forgot_PW = !this.forgot_PW
+      console.log(this.forgot_PW)
+    },
+    resetPassword() {
+      firebase.auth().sendPasswordResetEmail(this.resetEmail)
+      .then(() => {
+        this.email_sent = true
+      }).catch(err => {
+        this.valid_recovery_email = false
       })
     }
   }

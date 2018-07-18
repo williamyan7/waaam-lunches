@@ -95,7 +95,6 @@ export default {
             if(doc.data().met_buddy == true) {
               self.active_met_users.push(doc.data())
             }
-
           } else {
             self.inactive_users.push(doc.data())
           }
