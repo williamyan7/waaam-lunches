@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "waaam-lunches"
+    "default": "waaam-lunches",
+    "WAAAM Lunches": "waaam-lunches-a1d47"
   }
 }

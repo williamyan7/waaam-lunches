@@ -50,7 +50,8 @@
       </table>
     </div>
     <br>
-    <button @click="setUserArray" class="btn blue">Get User Data</button><br>
+    <button @click="setUserArray" class="btn blue">Get User Data</button>
+    <button @click="sendEmail" class="btn blue">Send Email</button><br>
     <!-- <button @click="clearBuddies" class="btn blue">Clear Buddy History</button> -->
     <div class="initiatePairs container center card-panel">
       <h4>Initiate pairing (complete weekly)</h4>
@@ -188,6 +189,10 @@ export default {
           userRef.doc(doc.data().email).update({ met_buddy: false })
         })
       })
+    },
+    sendEmail() {
+      var sendEmail = firebase.functions().httpsCallable('sendEmail')
+      sendEmail({ email: "williamyan7@gmail.com" }).then(console.log("email sent"))
     }
   }
 }
