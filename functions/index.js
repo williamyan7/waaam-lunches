@@ -1,5 +1,7 @@
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
+const admin = require('firebase-admin')
+admin.initializeApp()
 
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
@@ -12,11 +14,10 @@ const mailTransport = nodemailer.createTransport({
 });
 
 exports.sendEmail = functions.https.onCall((data, context) => {
-  console.log(data)
   const mailOptions = {
     to: data.email,
-    subject: `Hello`,
-    html: "<h2>Hello</h2>"
+    subject: `New WAAAM Lunch buddy`,
+    html: "<h2>You've been assigned a new lunch buddy!</h2><br><p>Login at www.waaamlunches.com to see who it is.</p>"
   };
   return mailTransport.sendMail(mailOptions).then(() => {
     return console.log('Mail sent')

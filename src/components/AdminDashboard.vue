@@ -51,8 +51,7 @@
     </div>
     <br>
     <button @click="setUserArray" class="btn blue">Get User Data</button>
-    <button @click="sendEmail" class="btn blue">Send Email</button><br>
-    <!-- <button @click="clearBuddies" class="btn blue">Clear Buddy History</button> -->
+    <button @click="clearBuddies" class="btn blue">Clear Buddy History</button>
     <div class="initiatePairs container center card-panel">
       <h4>Initiate pairing (complete weekly)</h4>
       <button @click="setUserArray" class="btn blue">1. Refresh User Data</button>
@@ -88,12 +87,13 @@ export default {
       self.active_users = []
       self.active_users_with_histories = []
       self.inactive_users = []
+      self.active_met_users = []
       self.db_reference.get().then(snapshot => {
         snapshot.forEach(doc => {
           self.users.push(doc.data())
           if(doc.data().status_active == true) {
             self.active_users.push(doc.data())
-            if(doc.data().met_buddy == true) {
+            if(doc.data().met_buddy == true || doc.data().buddy_email == null) {
               self.active_met_users.push(doc.data())
             }
           } else {
@@ -101,6 +101,7 @@ export default {
           }
         })
       })
+      console.log(self.active_met_users)
     },
     assignPairs() {
       var self = this
@@ -129,6 +130,7 @@ export default {
         )
       }
       this.updateBuddyList()
+      this.sendEmailReminder()
     },
     checkForDuplicates(pairs) {
         for (var i = 0; i < this.active_met_users.length; i++) {
@@ -190,9 +192,13 @@ export default {
         })
       })
     },
-    sendEmail() {
+    sendEmailReminder() {
       var sendEmail = firebase.functions().httpsCallable('sendEmail')
-      sendEmail({ email: "williamyan7@gmail.com" }).then(console.log("email sent"))
+      console.log(this.active_met_users)
+      for (var i = 0; i < this.active_met_users.length; i++) {
+        console.log(this.active_met_users[i].email)
+        sendEmail({ email: this.active_met_users[i].email })
+      }
     }
   }
 }
