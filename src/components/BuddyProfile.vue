@@ -94,15 +94,5 @@ export default {
 </script>
 
 <style lang="css">
-.profile {
-  margin-top: 40px;
-  max-width: 600px;
-}
-.profilePicture {
-  height: 150px;
-}
-.infoSection {
-  margin-top: 30px;
-  max-width: 500px;
-}
+
 </style>

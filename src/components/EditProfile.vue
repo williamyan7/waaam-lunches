@@ -247,31 +247,4 @@ export default {
 </script>
 
 <style lang="css">
-.profile {
-  margin-top: 40px;
-  max-width: 600px;
-}
-.profilePicture {
-  height: 150px;
-}
-.custom-file-upload{
-  border: 1px solid #ccc;
-  display: inline-block;
-  padding: 6px 12px;
-  cursor: pointer;
-}
-.deleteButton {
-  margin-top: 10px;
-}
-.infoSection {
-  margin-top: 30px;
-  max-width: 500px;
-}
-input[type="file"] {
-  display: none;
-}
-.settings {
-  margin-left: 40px;
-  margin-top: 20px;
-}
 </style>

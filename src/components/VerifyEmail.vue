@@ -14,8 +14,5 @@ export default {
 </script>
 
 <style lang="css">
-.verify {
-  max-width: 800px;
-  margin-top: 60px;
-}
+
 </style>

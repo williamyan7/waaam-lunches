@@ -79,10 +79,5 @@ export default {
 </script>
 
 <style lang="css">
-.margin-right {
-  margin-right: 100px;
-}
-.margin-left {
-  margin-left: 100px;
-}
+
 </style>

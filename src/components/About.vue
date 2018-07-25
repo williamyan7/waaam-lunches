@@ -20,8 +20,8 @@ export default {
 </script>
 
 <style lang="css">
-.about {
+/* .about {
   max-width: 800px;
   margin-top: 60px;
-}
+} */
 </style>

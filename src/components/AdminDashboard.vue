@@ -204,10 +204,4 @@ export default {
 }
 </script>
 <style lang="css">
-.admin {
-  max-width: 1000px;
-}
-.initiatePairs {
-  margin-top: 30px;
-}
 </style>
