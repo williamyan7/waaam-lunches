@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="profile container card-panel">
+  <div class="profile card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
         <h4>Here's you!</h4>
@@ -89,5 +89,37 @@ export default {
 </script>
 
 <style lang="css">
-
+.profilePicture {
+  height: 150px;
+}
+.infoSection {
+  margin-top: 30px;
+  max-width: 500px;
+}
+.profile {
+  margin-top: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.custom-file-upload{
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.deleteButton {
+  margin-top: 10px;
+}
+.infoSection {
+  margin-top: 30px;
+  max-width: 500px;
+}
+input[type="file"] {
+  display: none;
+}
+.settings {
+  margin-left: 40px;
+  margin-top: 20px;
+}
 </style>

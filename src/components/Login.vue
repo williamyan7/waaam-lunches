@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="login container">
+  <div class="login">
     <form class="card-panel" @submit.prevent="login">
       <div class="field" >
       <h2 class="center blue-text">Login</h2>
@@ -70,4 +70,19 @@ export default {
 </script>
 
 <style lang="css">
+.login {
+  margin-top: 40px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login h2{
+  font-size: 2.4em;
+}
+.login .field {
+  margin-bottom: 16px
+}
+.label {
+  font-size: 1em;
+}
 </style>

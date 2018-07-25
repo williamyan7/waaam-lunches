@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="verify container card-panel">
+  <div class="verify card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
         <h3>Please Verify Your Email then Re-login</h3>
@@ -14,5 +14,10 @@ export default {
 </script>
 
 <style lang="css">
-
+.verify {
+  margin-top: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

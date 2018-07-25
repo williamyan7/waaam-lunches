@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="about container card-panel">
+  <div class="about card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
         <h3>About WAAAM Lunches</h3>
@@ -20,8 +20,10 @@ export default {
 </script>
 
 <style lang="css">
-/* .about {
+.about {
+  margin-top: 40px;
   max-width: 800px;
-  margin-top: 60px;
-} */
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

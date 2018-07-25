@@ -10,15 +10,15 @@
 
 <script>
 import Navbar from '@/components/Navbar'
-import styles from '@/assets/styles.css'
+
 export default {
   name: 'App',
   components: {
-    Navbar,
-    styles
+    Navbar
   }
 }
 </script>
 
 <style>
+  /* @import './assets/styles.css'; */
 </style>

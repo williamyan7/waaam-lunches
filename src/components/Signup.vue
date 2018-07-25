@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="signup container">
+  <div class="signup">
     <form class="card-panel" @submit.prevent="signup">
       <h2 class="center blue-text">Signup</h2>
       <div class="field">
@@ -92,4 +92,19 @@ export default {
 </script>
 
 <style lang="css">
+.signup {
+  margin-top: 40px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.signup h2{
+  font-size: 2.4em;
+}
+.signup .field {
+  margin-bottom: 16px
+}
+.label {
+  font-size: 1em;
+}
 </style>

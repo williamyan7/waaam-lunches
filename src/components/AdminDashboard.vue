@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="admin container center card-panel">
+  <div class="admin center card-panel">
     <h2>Admin dashboard</h2>
     <br>
     <div class="participantList">
@@ -204,4 +204,11 @@ export default {
 }
 </script>
 <style lang="css">
+.admin {
+  max-width: 1000px;
+  margin-top: 40px;
+}
+.initiatePairs {
+  margin-top: 30px;
+}
 </style>
