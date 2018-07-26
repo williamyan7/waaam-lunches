@@ -2,7 +2,7 @@
   <div class="verify card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
-        <h3>Please Verify Your Email then Re-login</h3>
+        <h3>Please verify your email then re-login</h3>
       </v-flex>
     </v-layout>
   </div>

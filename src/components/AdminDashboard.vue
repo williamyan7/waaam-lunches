@@ -207,6 +207,8 @@ export default {
 .admin {
   max-width: 1000px;
   margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .initiatePairs {
   margin-top: 30px;

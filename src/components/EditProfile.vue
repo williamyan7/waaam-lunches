@@ -10,7 +10,7 @@
         <img v-if="!hasImage" src="../assets/profile_placeholder.png" class="profilePicture">
         <img v-if="hasImage" :src="imageURL" class="profilePicture">
         <form enctype="multipart/form-data">
-          <label for="uploadedImage" class="custom-file-upload grey-text text-darken-2">Upload Photo
+          <label for="uploadedImage" class="custom-file-upload grey-text text-darken-2">Upload Photo<br>(This may take a few seconds)
           <input class="photoInput" type="file" value="upload" id="uploadedImage" accept="image/*" @change="uploadImage">
           </label>
           <button @click="removeImage"><i class="material-icons grey-text text-darken-2 deleteButton">delete</i></button>
@@ -36,7 +36,8 @@
             </tr>
             <tr>
               <td>
-                Have you met with your current lunch buddy?
+                Have you met with your current lunch buddy?<br>
+                <font size="-2">(Note: changing this also changes the value for your buddy)</font>
               </td>
               <td>
                 <div class="switch">
@@ -53,6 +54,7 @@
         </table>
       </div>
       <div class="infoSection container no-padding">
+        <b>Click pencil to edit, and click pencil again to save change</b>
         <table>
           <tbody>
             <tr>
