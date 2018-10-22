@@ -16,7 +16,7 @@ const mailTransport = nodemailer.createTransport({
 exports.sendEmail = functions.https.onCall((data, context) => {
   const mailOptions = {
     to: data.email,
-    subject: `New WAAAM Lunch buddy`,
+    subject: `New WAAAM Lunch buddy - TEST`,
     html: "<h2>You've been assigned a new lunch buddy!</h2><br><p>Login at www.waaamlunches.com to see who it is.</p>"
   };
   return mailTransport.sendMail(mailOptions).then(() => {

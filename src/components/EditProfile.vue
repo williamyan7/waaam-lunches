@@ -54,15 +54,15 @@
         </table>
       </div>
       <div class="infoSection container no-padding">
-        <b>Click pencil to edit, and click pencil again to save change</b>
+        <br><button class="right" @click="editInfo" v-if="!editing"><i class="material-icons grey-text">edit</i></button>
         <table>
           <tbody>
             <tr>
               <td>Name</td>
-              <td v-if="!editableName">{{ name }}</td>
-              <td v-if="editableName"><input type="text" name="name" v-model="name"></td>
-              <td v-if="!editableName"><button @click="editName"><i class="material-icons grey-text">edit</i></button></td>
-              <td v-if="editableName"><button @click="submitName"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="!editing">{{ name }}</td>
+              <td v-if="editing"><input type="text" name="name" v-model="name"></td>
+              <!-- <td v-if="!editableName"><button @click="editName"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="editableName"><button @click="submitName"><i class="material-icons grey-text">edit</i></button></td> -->
             </tr>
             <tr>
               <td>Email</td>
@@ -81,34 +81,35 @@
             </tr>
             <tr>
               <td>Hometown</td>
-              <td v-if="!editableHometown">{{ hometown }}</td>
-              <td v-if="editableHometown"><input type="text" name="hometown" v-model="hometown"></td>
-              <td v-if="!editableHometown"><button @click="editHometown"><i class="material-icons grey-text">edit</i></button></td>
-              <td v-if="editableHometown"><button @click="submitHometown"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="!editing">{{ hometown }}</td>
+              <td v-if="editing"><input type="text" name="hometown" v-model="hometown"></td>
+              <!-- <td v-if="!editableHometown"><button @click="editHometown"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="editableHometown"><button @click="submitHometown"><i class="material-icons grey-text">edit</i></button></td> -->
             </tr>
             <tr>
               <td>Pre-Wharton Industry</td>
-              <td v-if="!editablePre">{{ preIndustry }}</td>
-              <td v-if="editablePre"><input type="text" name="preIndustry" v-model="preIndustry"></td>
-              <td v-if="!editablePre"><button @click="editPre"><i class="material-icons grey-text">edit</i></button></td>
-              <td v-if="editablePre"><button @click="submitPre"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="!editing">{{ preIndustry }}</td>
+              <td v-if="editing"><input type="text" name="preIndustry" v-model="preIndustry"></td>
+              <!-- <td v-if="!editablePre"><button @click="editPre"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="editablePre"><button @click="submitPre"><i class="material-icons grey-text">edit</i></button></td> -->
             </tr>
             <tr>
               <td>Post-Wharton Industry Interest(s)</td>
-              <td v-if="!editablePost">{{ postIndustry }}</td>
-              <td v-if="editablePost"><input type="text" name="postIndustry" v-model="postIndustry"></td>
-              <td v-if="!editablePost"><button @click="editPost"><i class="material-icons grey-text">edit</i></button></td>
-              <td v-if="editablePost"><button @click="submitPost"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="!editing">{{ postIndustry }}</td>
+              <td v-if="editing"><input type="text" name="postIndustry" v-model="postIndustry"></td>
+              <!-- <td v-if="!editablePost"><button @click="editPost"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="editablePost"><button @click="submitPost"><i class="material-icons grey-text">edit</i></button></td> -->
             </tr>
             <tr>
               <td>Hobbies and Interests</td>
-              <td v-if="!editableAbout">{{ about }}</td>
-              <td v-if="editableAbout"><input type="text" name="about" v-model="about"></td>
-              <td v-if="!editableAbout"><button @click="editAbout"><i class="material-icons grey-text">edit</i></button></td>
-              <td v-if="editableAbout"><button @click="submitAbout"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="!editing">{{ about }}</td>
+              <td v-if="editing"><input type="text" name="about" v-model="about"></td>
+              <!-- <td v-if="!editableAbout"><button @click="editAbout"><i class="material-icons grey-text">edit</i></button></td>
+              <td v-if="editableAbout"><button @click="submitAbout"><i class="material-icons grey-text">edit</i></button></td> -->
             </tr>
           </tbody>
-        </table>
+        </table><br>
+        <button class="btn blue" v-if ="editing" @click="saveInfo">Save</button>
       </div>
     </v-layout>
   </div>
@@ -129,11 +130,7 @@ export default {
       preIndustry:'',
       postIndustry:'',
       buddy_email:'',
-      editableName: false,
-      editableAbout: false,
-      editableHometown: false,
-      editablePre: false,
-      editablePost: false,
+      editing: false,
       status_active: null,
       met_buddy: null
     }
@@ -191,45 +188,21 @@ export default {
         uploadedPhoto: false
       })
     },
-    editName() {
-      this.editableName = true
+    editInfo(){
+      this.editing = true
     },
-    submitName() {
+    saveInfo(){
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
       .update({ name: this.name })
-      this.editableName = false
-    },
-    editAbout() {
-      this.editableAbout = true
-    },
-    submitAbout() {
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
       .update({ about: this.about })
-      this.editableAbout = false
-    },
-    editHometown() {
-      this.editableHometown = true
-    },
-    submitHometown() {
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
       .update({ hometown: this.hometown })
-      this.editableHometown = false
-    },
-    editPre() {
-      this.editablePre = true
-    },
-    submitPre() {
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
       .update({ preindustry: this.preIndustry })
-      this.editablePre = false
-    },
-    editPost() {
-      this.editablePost = true
-    },
-    submitPost() {
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)
       .update({ postindustry: this.postIndustry })
-      this.editablePost = false
+      this.editing = false
     },
     toggleStatus() {
       firebase.firestore().collection('users').doc(firebase.auth().currentUser.email)

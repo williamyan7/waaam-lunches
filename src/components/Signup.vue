@@ -61,7 +61,6 @@ export default {
                   name: this.name,
                   email: this.email,
                   year: this.year,
-                  has_assigned_group: false,
                   status_active: true,
                   met_buddy: false,
                   uploadedPhoto: false,
@@ -70,7 +69,6 @@ export default {
                   postindustry: 'Something new',
                   about: 'I love WAAAM!',
                   buddy_email: null,
-                  is_admin: false,
                   past_buddies: ['n/a']
                 })
               }).then(() => {

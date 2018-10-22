@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="row">
     <div class="col s1" />
-    <div class="col s5">
+    <div class="profile col s5">
       <MyProfile />
     </div>
-    <div class="col s5">
+    <div class="profile col s5">
       <BuddyProfile />
     </div>
     <div class="col s1" />
@@ -28,4 +28,7 @@ export default {
 </script>
 
 <style lang="css">
+.profile {
+  min-width: 350px;
+}
 </style>

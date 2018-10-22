@@ -1,0 +1,145 @@
+[debug] [2018-10-22T03:31:02.943Z] ----------------------------------------------------------------------
+[debug] [2018-10-22T03:31:02.945Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\william\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-10-22T03:31:02.945Z] CLI Version:   5.1.1
+[debug] [2018-10-22T03:31:02.945Z] Platform:      win32
+[debug] [2018-10-22T03:31:02.945Z] Node Version:  v8.11.2
+[debug] [2018-10-22T03:31:02.945Z] Time:          Sun Oct 21 2018 23:31:02 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-10-22T03:31:02.945Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-22T03:31:02.957Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-22T03:31:02.957Z] > authorizing via signed-in user
+[debug] [2018-10-22T03:31:02.957Z] [iam] checking project waaam-lunches-a1d47 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2018-10-22T03:31:02.959Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/waaam-lunches-a1d47:testIamPermissions  
+
+[debug] [2018-10-22T03:31:03.396Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:03.399Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/waaam-lunches-a1d47  
+ 
+[debug] [2018-10-22T03:31:03.811Z] <<< HTTP RESPONSE 200
+[warn] !  functions: package.json indicates an outdated version of firebase-functions.
+ Please upgrade using npm install --save firebase-functions@latest in your functions directory.
+[info] 
+[info] === Deploying to 'waaam-lunches-a1d47'...
+[info] 
+[info] i  deploying storage, firestore, functions, hosting
+[debug] [2018-10-22T03:31:06.650Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/waaam-lunches-a1d47  
+ 
+[debug] [2018-10-22T03:31:07.155Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2018-10-22T03:31:07.160Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/waaam-lunches-a1d47:test  
+
+[debug] [2018-10-22T03:31:07.622Z] <<< HTTP RESPONSE 200
+[info] +  storage: rules file storage.rules compiled successfully
+[info] i  firestore: checking firestore.rules for compilation errors...
+[debug] [2018-10-22T03:31:07.629Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/waaam-lunches-a1d47:test  
+
+[debug] [2018-10-22T03:31:07.903Z] <<< HTTP RESPONSE 200
+[info] +  firestore: rules file firestore.rules compiled successfully
+[debug] [2018-10-22T03:31:07.920Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.12.1",
+    "firebase-functions": "^1.0.3",
+    "nodemailer": "^4.6.7"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-10-22T03:31:07.926Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/waaam-lunches-a1d47?view=CONSUMER_VIEW  
+ 
+[debug] [2018-10-22T03:31:07.929Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/waaam-lunches-a1d47?view=CONSUMER_VIEW  
+ 
+[debug] [2018-10-22T03:31:08.837Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:08.881Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2018-10-22T03:31:08.888Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/waaam-lunches-a1d47  
+ 
+[debug] [2018-10-22T03:31:09.136Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:09.137Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/787345928970:getServerAppConfig  
+ 
+[debug] [2018-10-22T03:31:09.504Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:09.510Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/waaam-lunches-a1d47/versions  
+
+[debug] [2018-10-22T03:31:10.498Z] <<< HTTP RESPONSE 200
+[info] i  storage: uploading rules storage.rules...
+[debug] [2018-10-22T03:31:10.526Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/waaam-lunches-a1d47/rulesets  
+
+[debug] [2018-10-22T03:31:10.941Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:10.942Z] [rules] created ruleset projects/waaam-lunches-a1d47/rulesets/ed63a51b-36eb-40b3-ab91-5a0841e8490c
+[info] i  firestore: uploading rules firestore.rules...
+[debug] [2018-10-22T03:31:10.955Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/waaam-lunches-a1d47/rulesets  
+
+[debug] [2018-10-22T03:31:10.956Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta1/projects/waaam-lunches-a1d47/databases/(default)/indexes  
+ 
+[debug] [2018-10-22T03:31:11.333Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:11.334Z] [rules] created ruleset projects/waaam-lunches-a1d47/rulesets/01c3eb25-def3-4a4a-90b6-f82a58440843
+[debug] [2018-10-22T03:31:11.598Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-10-22T03:31:11.616Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/waaam-lunches-a1d47/configs  
+ 
+[debug] [2018-10-22T03:31:12.090Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:12.091Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/waaam-lunches-a1d47/configs/gmail/variables  
+ 
+[debug] [2018-10-22T03:31:12.713Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:12.714Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/waaam-lunches-a1d47/configs/gmail/variables/password  
+ 
+[debug] [2018-10-22T03:31:12.714Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/waaam-lunches-a1d47/configs/gmail/variables/email  
+ 
+[debug] [2018-10-22T03:31:12.962Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:13.092Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (39.54 KB) for uploading
+[debug] [2018-10-22T03:31:13.483Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/waaam-lunches-a1d47/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2018-10-22T03:31:14.126Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:14.126Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-9f29feae-dd17-4c34-9978-dbc8e291a87a/8c1686db-6948-48a7-90fb-a5f256149b83.zip?GoogleAccessId=service-787345928970@gcf-admin-robot.iam.gserviceaccount.com&Expires=1540180873&Signature=XaIVS%2BMAemyX3sVZdmvWF9xR%2B2GfLku3KSiwFmobQ9hF90%2FcQVnCybvwK%2BE300XjdUW5FbZVjdFEljtganaauu7hgj4VTvg5YzyZct%2BN8L%2BgqSRDqVKwKfLHvaMA%2BxGTx24gIV03wRIDbOxr%2BjHZhT7GNkPQtLeOYILpr6gP208xH01B5HU4fkPh7J9yJk4ZHJLC2HNqQRC2EWfBNhrj%2FDjK%2Bhrzo%2BhxqXzshuHDoHqDBL74PPkk33%2BQmVlnW%2FK7HBmJ7okI2l5zgK%2Br4GWr1mTc%2BMyKhZ%2BLFJkjMvudYRYOauTd0cvgg9uyWhchEL1uJV7CwYLIhn8fppyrqqbA%2BQ%3D%3D  
+
+[debug] [2018-10-22T03:31:14.625Z] <<< HTTP RESPONSE 200
+[info] +  functions: functions folder uploaded successfully
+[info] i  hosting[waaam-lunches-a1d47]: beginning deploy...
+[info] i  hosting[waaam-lunches-a1d47]: found 9 files in dist
+[debug] [2018-10-22T03:31:15.471Z] [hosting] hash cache [ZGlzdA] stored for 9 files
+[debug] [2018-10-22T03:31:15.472Z] [hosting][hash queue][FINAL]
+[debug] [2018-10-22T03:31:15.472Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/waaam-lunches-a1d47/versions/6a1613d4971099a0:populateFiles  
+ <request body omitted>
+[debug] [2018-10-22T03:31:16.302Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:16.310Z] [hosting][populate queue][FINAL]
+[debug] [2018-10-22T03:31:16.310Z] [hosting] uploads queued: 4
+[debug] [2018-10-22T03:31:18.087Z] [hosting][upload queue][FINAL]
+[info] +  hosting[waaam-lunches-a1d47]: file upload complete
+[debug] [2018-10-22T03:31:18.088Z] [hosting] deploy completed after 3453ms
+[debug] [2018-10-22T03:31:18.333Z] [rules] releasing firebase.storage/waaam-lunches-a1d47.appspot.com with ruleset projects/waaam-lunches-a1d47/rulesets/ed63a51b-36eb-40b3-ab91-5a0841e8490c
+[debug] [2018-10-22T03:31:18.334Z] >>> HTTP REQUEST PATCH https://firebaserules.googleapis.com/v1/projects/waaam-lunches-a1d47/releases/firebase.storage/waaam-lunches-a1d47.appspot.com  
+
+[debug] [2018-10-22T03:31:18.708Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:18.709Z] [rules] updated release projects/waaam-lunches-a1d47/releases/firebase.storage/waaam-lunches-a1d47.appspot.com
+[info] +  storage: released rules storage.rules to firebase.storage/waaam-lunches-a1d47.appspot.com
+[debug] [2018-10-22T03:31:18.719Z] [rules] releasing cloud.firestore with ruleset projects/waaam-lunches-a1d47/rulesets/01c3eb25-def3-4a4a-90b6-f82a58440843
+[debug] [2018-10-22T03:31:18.720Z] >>> HTTP REQUEST PATCH https://firebaserules.googleapis.com/v1/projects/waaam-lunches-a1d47/releases/cloud.firestore  
+
+[debug] [2018-10-22T03:31:19.102Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:19.102Z] [rules] updated release projects/waaam-lunches-a1d47/releases/cloud.firestore
+[info] +  firestore: released rules firestore.rules to cloud.firestore
+[debug] [2018-10-22T03:31:19.106Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/waaam-lunches-a1d47/locations/-/functions  
+ 
+[debug] [2018-10-22T03:31:19.816Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating Node.js 6 function sendEmail(us-central1)...
+[debug] [2018-10-22T03:31:19.824Z] Trigger is:  {"httpsTrigger":{}}
+[debug] [2018-10-22T03:31:19.827Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/waaam-lunches-a1d47/locations/us-central1/functions/sendEmail {"updateMask":"sourceUploadUrl,name,labels,httpsTrigger"} 
+
+[debug] [2018-10-22T03:31:20.370Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:20.371Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/waaam-lunches-a1d47/locations/-/functions  
+ 
+[debug] [2018-10-22T03:31:21.072Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:21.074Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/d2FhYW0tbHVuY2hlcy1hMWQ0Ny91cy1jZW50cmFsMS9zZW5kRW1haWwvam14QTJrRFJZU1U  
+ 
+[debug] [2018-10-22T03:31:21.446Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-22T03:31:23.447Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/d2FhYW0tbHVuY2hlcy1hMWQ0Ny91cy1jZW50cmFsMS9zZW5kRW1haWwvam14QTJrRFJZU1U  
+ 
+[debug] [2018-10-22T03:31:23.826Z] <<< HTTP RESPONSE 200

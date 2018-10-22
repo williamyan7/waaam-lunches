@@ -2,7 +2,8 @@
   <div class="profile card-panel">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center">
-        <h4>Here's your buddy!</h4>
+        <h4 v-if="buddy_name">Here's your buddy!</h4>
+        <h4 v-if="!buddy_name">No buddy assigned</h4>
       </v-flex>
       <v-flex xs12 class="text-xs-center" mt-3>
         <img v-if="!hasImage" src="../assets/profile_placeholder.png" class="profilePicture">

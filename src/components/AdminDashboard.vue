@@ -3,7 +3,7 @@
     <h2>Admin dashboard</h2>
     <br>
     <div class="participantList">
-      <h5>Actives</h5>
+      <h5>Active and Met (or new)</h5>
       <table>
         <thead>
           <tr>
@@ -15,7 +15,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user,index) in active_users" :key="index">
+          <tr v-for="(user,index) in active_met_users" :key="index">
+            <td>{{ index+1 }}
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.buddy_email }}</td>
+            <td>{{ user.met_buddy }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5>Actives and Unmet</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Current buddy</th>
+            <th>Met with buddy?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(user,index) in active_unmet_users" :key="index">
             <td>{{ index+1 }}
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
@@ -58,6 +79,7 @@
       <button v-if="include_admin" @click="toggleInclude" class="btn blue">2. Include admin</button>
       <button v-if="!include_admin" @click="toggleInclude" class="btn grey">2. Don't include admin</button>
       <button @click="assignPairs" class="btn blue">3. Assign Pairs</button>
+      <button @click="sendEmailReminder" class="btn blue">4. Send Email</button>
     </div>
   </div>
 </template>
@@ -69,7 +91,7 @@ export default {
   data() {
     return {
       users: [],
-      active_users: [],
+      active_unmet_users: [],
       active_met_users: [],
       inactive_users: [],
       active_users_with_histories: [],
@@ -84,7 +106,7 @@ export default {
     setUserArray() {
       var self = this
       self.users = []
-      self.active_users = []
+      self.active_unmet_users = []
       self.active_users_with_histories = []
       self.inactive_users = []
       self.active_met_users = []
@@ -92,9 +114,10 @@ export default {
         snapshot.forEach(doc => {
           self.users.push(doc.data())
           if(doc.data().status_active == true) {
-            self.active_users.push(doc.data())
             if(doc.data().met_buddy == true || doc.data().buddy_email == null) {
               self.active_met_users.push(doc.data())
+            } else {
+              self.active_unmet_users.push(doc.data())
             }
           } else {
             self.inactive_users.push(doc.data())
@@ -129,8 +152,13 @@ export default {
           { buddy_email: pairs[i].email1 }
         )
       }
+      for(var j = 0; j < self.inactive_users.length; j++) {
+        self.db_reference.doc(self.inactive_users[j].email).update({
+            buddy_email: null,
+            met_buddy: false
+        })
+      }
       this.updateBuddyList()
-      this.sendEmailReminder()
     },
     checkForDuplicates(pairs) {
         for (var i = 0; i < this.active_met_users.length; i++) {
@@ -154,7 +182,7 @@ export default {
       }
     },
     updateBuddyList() {
-      firebase.firestore().collection('users').get()
+      firebase.firestore().collection('users').where("status_active","==", true).get()
       .then (snapshot => {
        snapshot.forEach(doc => {
          var buddy_email = doc.data().buddy_email
@@ -194,9 +222,7 @@ export default {
     },
     sendEmailReminder() {
       var sendEmail = firebase.functions().httpsCallable('sendEmail')
-      console.log(this.active_met_users)
       for (var i = 0; i < this.active_met_users.length; i++) {
-        console.log(this.active_met_users[i].email)
         sendEmail({ email: this.active_met_users[i].email })
       }
     }
